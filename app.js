@@ -1,6 +1,11 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+const roomRouter = require('./routes/rooms.js');
+const dotenv = require('dotenv');
+
+dotenv.config();
+const cors =require("cors");
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
@@ -18,6 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use("/api/rooms", roomRouter);
 app.get("/hello", (req, res)=>res.json({"hello": "worlkd"}));
 app.use('/', indexRouter);
 // app.use('/users', usersRouter);
